@@ -1,0 +1,323 @@
+Created by PLY version 3.10 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> document
+Rule 1     document -> txt
+Rule 2     txt -> id_init
+Rule 3     txt -> command
+Rule 4     txt -> txt id_init
+Rule 5     txt -> txt command
+Rule 6     id_init -> ID LPAREN text_param COMMA text_param RPAREN
+Rule 7     text_param -> QUOTES TEXT QUOTES
+Rule 8     command -> TEXT LPAREN ID COMMA ID COMMA jump_param RPAREN
+Rule 9     jump_param -> TEXT COLON TEXT
+Rule 10    command -> TEXT LPAREN ID RPAREN
+Rule 11    command -> TEXT LPAREN ID COMMA ID RPAREN
+Rule 12    command -> TEXT LPAREN ID COMMA ID COMMA ID RPAREN
+
+Terminals, with rules where they appear
+
+COLON                : 9
+COMMA                : 6 8 8 11 12 12
+ID                   : 6 8 8 10 11 11 12 12 12
+LPAREN               : 6 8 10 11 12
+QUOTES               : 7 7
+RPAREN               : 6 8 10 11 12
+TEXT                 : 7 8 9 9 10 11 12
+error                : 
+
+Nonterminals, with rules where they appear
+
+command              : 3 5
+document             : 0
+id_init              : 2 4
+jump_param           : 8
+text_param           : 6 6
+txt                  : 1 4 5
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . document
+    (1) document -> . txt
+    (2) txt -> . id_init
+    (3) txt -> . command
+    (4) txt -> . txt id_init
+    (5) txt -> . txt command
+    (6) id_init -> . ID LPAREN text_param COMMA text_param RPAREN
+    (8) command -> . TEXT LPAREN ID COMMA ID COMMA jump_param RPAREN
+    (10) command -> . TEXT LPAREN ID RPAREN
+    (11) command -> . TEXT LPAREN ID COMMA ID RPAREN
+    (12) command -> . TEXT LPAREN ID COMMA ID COMMA ID RPAREN
+
+    ID              shift and go to state 5
+    TEXT            shift and go to state 6
+
+    document                       shift and go to state 1
+    txt                            shift and go to state 2
+    id_init                        shift and go to state 3
+    command                        shift and go to state 4
+
+state 1
+
+    (0) S' -> document .
+
+
+
+state 2
+
+    (1) document -> txt .
+    (4) txt -> txt . id_init
+    (5) txt -> txt . command
+    (6) id_init -> . ID LPAREN text_param COMMA text_param RPAREN
+    (8) command -> . TEXT LPAREN ID COMMA ID COMMA jump_param RPAREN
+    (10) command -> . TEXT LPAREN ID RPAREN
+    (11) command -> . TEXT LPAREN ID COMMA ID RPAREN
+    (12) command -> . TEXT LPAREN ID COMMA ID COMMA ID RPAREN
+
+    $end            reduce using rule 1 (document -> txt .)
+    ID              shift and go to state 5
+    TEXT            shift and go to state 6
+
+    id_init                        shift and go to state 7
+    command                        shift and go to state 8
+
+state 3
+
+    (2) txt -> id_init .
+
+    ID              reduce using rule 2 (txt -> id_init .)
+    TEXT            reduce using rule 2 (txt -> id_init .)
+    $end            reduce using rule 2 (txt -> id_init .)
+
+
+state 4
+
+    (3) txt -> command .
+
+    ID              reduce using rule 3 (txt -> command .)
+    TEXT            reduce using rule 3 (txt -> command .)
+    $end            reduce using rule 3 (txt -> command .)
+
+
+state 5
+
+    (6) id_init -> ID . LPAREN text_param COMMA text_param RPAREN
+
+    LPAREN          shift and go to state 9
+
+
+state 6
+
+    (8) command -> TEXT . LPAREN ID COMMA ID COMMA jump_param RPAREN
+    (10) command -> TEXT . LPAREN ID RPAREN
+    (11) command -> TEXT . LPAREN ID COMMA ID RPAREN
+    (12) command -> TEXT . LPAREN ID COMMA ID COMMA ID RPAREN
+
+    LPAREN          shift and go to state 10
+
+
+state 7
+
+    (4) txt -> txt id_init .
+
+    ID              reduce using rule 4 (txt -> txt id_init .)
+    TEXT            reduce using rule 4 (txt -> txt id_init .)
+    $end            reduce using rule 4 (txt -> txt id_init .)
+
+
+state 8
+
+    (5) txt -> txt command .
+
+    ID              reduce using rule 5 (txt -> txt command .)
+    TEXT            reduce using rule 5 (txt -> txt command .)
+    $end            reduce using rule 5 (txt -> txt command .)
+
+
+state 9
+
+    (6) id_init -> ID LPAREN . text_param COMMA text_param RPAREN
+    (7) text_param -> . QUOTES TEXT QUOTES
+
+    QUOTES          shift and go to state 12
+
+    text_param                     shift and go to state 11
+
+state 10
+
+    (8) command -> TEXT LPAREN . ID COMMA ID COMMA jump_param RPAREN
+    (10) command -> TEXT LPAREN . ID RPAREN
+    (11) command -> TEXT LPAREN . ID COMMA ID RPAREN
+    (12) command -> TEXT LPAREN . ID COMMA ID COMMA ID RPAREN
+
+    ID              shift and go to state 13
+
+
+state 11
+
+    (6) id_init -> ID LPAREN text_param . COMMA text_param RPAREN
+
+    COMMA           shift and go to state 14
+
+
+state 12
+
+    (7) text_param -> QUOTES . TEXT QUOTES
+
+    TEXT            shift and go to state 15
+
+
+state 13
+
+    (8) command -> TEXT LPAREN ID . COMMA ID COMMA jump_param RPAREN
+    (10) command -> TEXT LPAREN ID . RPAREN
+    (11) command -> TEXT LPAREN ID . COMMA ID RPAREN
+    (12) command -> TEXT LPAREN ID . COMMA ID COMMA ID RPAREN
+
+    COMMA           shift and go to state 16
+    RPAREN          shift and go to state 17
+
+
+state 14
+
+    (6) id_init -> ID LPAREN text_param COMMA . text_param RPAREN
+    (7) text_param -> . QUOTES TEXT QUOTES
+
+    QUOTES          shift and go to state 12
+
+    text_param                     shift and go to state 18
+
+state 15
+
+    (7) text_param -> QUOTES TEXT . QUOTES
+
+    QUOTES          shift and go to state 19
+
+
+state 16
+
+    (8) command -> TEXT LPAREN ID COMMA . ID COMMA jump_param RPAREN
+    (11) command -> TEXT LPAREN ID COMMA . ID RPAREN
+    (12) command -> TEXT LPAREN ID COMMA . ID COMMA ID RPAREN
+
+    ID              shift and go to state 20
+
+
+state 17
+
+    (10) command -> TEXT LPAREN ID RPAREN .
+
+    ID              reduce using rule 10 (command -> TEXT LPAREN ID RPAREN .)
+    TEXT            reduce using rule 10 (command -> TEXT LPAREN ID RPAREN .)
+    $end            reduce using rule 10 (command -> TEXT LPAREN ID RPAREN .)
+
+
+state 18
+
+    (6) id_init -> ID LPAREN text_param COMMA text_param . RPAREN
+
+    RPAREN          shift and go to state 21
+
+
+state 19
+
+    (7) text_param -> QUOTES TEXT QUOTES .
+
+    COMMA           reduce using rule 7 (text_param -> QUOTES TEXT QUOTES .)
+    RPAREN          reduce using rule 7 (text_param -> QUOTES TEXT QUOTES .)
+
+
+state 20
+
+    (8) command -> TEXT LPAREN ID COMMA ID . COMMA jump_param RPAREN
+    (11) command -> TEXT LPAREN ID COMMA ID . RPAREN
+    (12) command -> TEXT LPAREN ID COMMA ID . COMMA ID RPAREN
+
+    COMMA           shift and go to state 22
+    RPAREN          shift and go to state 23
+
+
+state 21
+
+    (6) id_init -> ID LPAREN text_param COMMA text_param RPAREN .
+
+    ID              reduce using rule 6 (id_init -> ID LPAREN text_param COMMA text_param RPAREN .)
+    TEXT            reduce using rule 6 (id_init -> ID LPAREN text_param COMMA text_param RPAREN .)
+    $end            reduce using rule 6 (id_init -> ID LPAREN text_param COMMA text_param RPAREN .)
+
+
+state 22
+
+    (8) command -> TEXT LPAREN ID COMMA ID COMMA . jump_param RPAREN
+    (12) command -> TEXT LPAREN ID COMMA ID COMMA . ID RPAREN
+    (9) jump_param -> . TEXT COLON TEXT
+
+    ID              shift and go to state 25
+    TEXT            shift and go to state 24
+
+    jump_param                     shift and go to state 26
+
+state 23
+
+    (11) command -> TEXT LPAREN ID COMMA ID RPAREN .
+
+    ID              reduce using rule 11 (command -> TEXT LPAREN ID COMMA ID RPAREN .)
+    TEXT            reduce using rule 11 (command -> TEXT LPAREN ID COMMA ID RPAREN .)
+    $end            reduce using rule 11 (command -> TEXT LPAREN ID COMMA ID RPAREN .)
+
+
+state 24
+
+    (9) jump_param -> TEXT . COLON TEXT
+
+    COLON           shift and go to state 27
+
+
+state 25
+
+    (12) command -> TEXT LPAREN ID COMMA ID COMMA ID . RPAREN
+
+    RPAREN          shift and go to state 28
+
+
+state 26
+
+    (8) command -> TEXT LPAREN ID COMMA ID COMMA jump_param . RPAREN
+
+    RPAREN          shift and go to state 29
+
+
+state 27
+
+    (9) jump_param -> TEXT COLON . TEXT
+
+    TEXT            shift and go to state 30
+
+
+state 28
+
+    (12) command -> TEXT LPAREN ID COMMA ID COMMA ID RPAREN .
+
+    ID              reduce using rule 12 (command -> TEXT LPAREN ID COMMA ID COMMA ID RPAREN .)
+    TEXT            reduce using rule 12 (command -> TEXT LPAREN ID COMMA ID COMMA ID RPAREN .)
+    $end            reduce using rule 12 (command -> TEXT LPAREN ID COMMA ID COMMA ID RPAREN .)
+
+
+state 29
+
+    (8) command -> TEXT LPAREN ID COMMA ID COMMA jump_param RPAREN .
+
+    ID              reduce using rule 8 (command -> TEXT LPAREN ID COMMA ID COMMA jump_param RPAREN .)
+    TEXT            reduce using rule 8 (command -> TEXT LPAREN ID COMMA ID COMMA jump_param RPAREN .)
+    $end            reduce using rule 8 (command -> TEXT LPAREN ID COMMA ID COMMA jump_param RPAREN .)
+
+
+state 30
+
+    (9) jump_param -> TEXT COLON TEXT .
+
+    RPAREN          reduce using rule 9 (jump_param -> TEXT COLON TEXT .)
+
