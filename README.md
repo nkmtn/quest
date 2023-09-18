@@ -1,16 +1,15 @@
 # quest
 
-Ядро дипломной работы. 
+The core of my bachelor's thesis.
 
-Переводит код из собственного псевдоязыка - языка квестов, в код на qml.
+Translates code from it's own pseudo-language - the Quest language, into QML code.
 
-Для моделирования квеста используется из представление в виде конечного автомата: \
-каждое задание квеста является состоянием с различными типами переходов \
-(на данный момент по времени правильности/неправильности ответа).
+To model the quest, a representation in the form of a finite state machine is used: \
+Each quest task is a state with different types of transitions\
 
-Пример кода на язвке квестов - input.txt
+Example code in quest language - input.txt
 
-Синтаксис будет иметь вид:
+The syntax will look like:
 ```
 document -> txt
 txt -> txt id_init
